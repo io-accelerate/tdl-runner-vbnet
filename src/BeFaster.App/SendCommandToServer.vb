@@ -79,8 +79,10 @@ Module SendCommandToServer
             WithActionProvider(New UserInputAction(args)).
             Start()
 
-        Console.Write("Press any key to continue . . . ")
-        Console.ReadKey()
+        If Not Console.IsInputRedirected Then
+            Console.WriteLine("Press any key to exit...")
+            Console.ReadKey()
+        End If
     End Sub
 
 End Module
