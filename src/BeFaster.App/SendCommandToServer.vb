@@ -1,10 +1,4 @@
-﻿Imports BeFaster.App.Solutions.SUM
-Imports BeFaster.App.Solutions.CHK
-Imports BeFaster.App.Solutions.CHL
-Imports BeFaster.App.Solutions.HLO
-Imports BeFaster.App.Solutions.FIZ
-Imports BeFaster.App.Solutions.ARRS
-Imports BeFaster.App.Solutions.IRNG
+﻿Imports BeFaster.App
 Imports BeFaster.Runner
 Imports BeFaster.Runner.Utils
 Imports TDL.Client
@@ -57,32 +51,44 @@ Imports Newtonsoft.Json.Linq
 '        * Anything really, provided that this file stays runnable.
 '
 '
-Module SendCommandToServer
+Namespace BeFaster.App
+    Module SendCommandToServer
 
-    Sub Main(args As String())
+        Sub Main(args As String())
 
-        Dim runner As IImplementationRunner =
-            New QueueBasedImplementationRunner.Builder().
-                SetConfig(Utils.GetRunnerConfig()).
-                WithSolutionFor("sum", Function(p As List(of JToken)) Sum.Sum(p(0).ToObject(of Integer)(), p(1).ToObject(of Integer)())).
-                WithSolutionFor("hello", Function(p As List(of JToken)) Hello.Hello(p(0).ToObject(of String)())).
-                WithSolutionFor("array_sum", Function(p As List(of JToken)) ArraySum.Compute(p(0).ToObject(of List(of Integer))())).
-                WithSolutionFor("int_range", Function(p As List(of JToken)) IntRange.Generate(p(0).ToObject(of Integer)(), p(1).ToObject(of Integer)())).
-                WithSolutionFor("fizz_buzz", Function(p As List(of JToken)) FizzBuzz.FizzBuzz(p(0).ToObject(of Integer)())).
-                WithSolutionFor("checkout", Function(p As List(of JToken)) Checkout.ComputePrice(p(0).ToObject(of String)())).
-                WithSolutionFor("checklite", Function(p As List(of JToken)) Checklite.ComputePrice(p(0).ToObject(of String)())).
-                Create()
+            Dim entryPointMapping As New EntryPointMapping()
 
-        ChallengeSession.
-            ForRunner(runner).
-            WithConfig(Utils.GetConfig()).
-            WithActionProvider(New UserInputAction(args)).
-            Start()
+            Dim runner As IImplementationRunner =
+                New QueueBasedImplementationRunner.Builder().
+                    SetConfig(Utils.GetRunnerConfig()).
+                    WithSolutionFor("sum", AddressOf entryPointMapping.Sum).
+                    WithSolutionFor("hello", AddressOf entryPointMapping.Hello).
+                    WithSolutionFor("fizz_buzz", AddressOf entryPointMapping.FizzBuzz).
+                    WithSolutionFor("checkout", AddressOf entryPointMapping.Checkout).
+                    WithSolutionFor("increment", AddressOf entryPointMapping.Increment).
+                    WithSolutionFor("to_uppercase", AddressOf entryPointMapping.ToUppercase).
+                    WithSolutionFor("letter_to_santa", AddressOf entryPointMapping.LetterToSanta).
+                    WithSolutionFor("count_lines", AddressOf entryPointMapping.CountLines).
+                    WithSolutionFor("array_sum", AddressOf entryPointMapping.ArraySum).
+                    WithSolutionFor("int_range", AddressOf entryPointMapping.IntRange).
+                    WithSolutionFor("filter_pass", AddressOf entryPointMapping.FilterPass).
+                    WithSolutionFor("inventory_add", AddressOf entryPointMapping.InventoryAdd).
+                    WithSolutionFor("inventory_size", AddressOf entryPointMapping.InventorySize).
+                    WithSolutionFor("inventory_get", AddressOf entryPointMapping.InventoryGet).
+                    WithSolutionFor("waves", AddressOf entryPointMapping.Waves).
+                    Create()
 
-        If Not Console.IsInputRedirected Then
-            Console.WriteLine("Press any key to exit...")
-            Console.ReadKey()
-        End If
-    End Sub
+            ChallengeSession.
+                ForRunner(runner).
+                WithConfig(Utils.GetConfig()).
+                WithActionProvider(New UserInputAction(args)).
+                Start()
 
-End Module
+            If Not Console.IsInputRedirected Then
+                Console.WriteLine("Press any key to exit...")
+                Console.ReadKey()
+            End If
+        End Sub
+
+    End Module
+End Namespace
