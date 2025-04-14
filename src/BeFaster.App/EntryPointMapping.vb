@@ -2,6 +2,7 @@ Imports BeFaster.App.Solutions.CHK
 Imports BeFaster.App.Solutions.DMO
 Imports BeFaster.App.Solutions.FIZ
 Imports BeFaster.App.Solutions.HLO
+Imports BeFaster.App.Solutions.RBT
 Imports BeFaster.App.Solutions.SUM
 
 Imports System.Collections.Generic
@@ -16,6 +17,7 @@ Namespace BeFaster.App
         Private ReadOnly helloSolution As HelloSolution
         Private ReadOnly fizzBuzzSolution As FizzBuzzSolution
         Private ReadOnly checkoutSolution As CheckoutSolution
+        Private ReadOnly rabbitHoleSolution As RabbitHoleSolution
         Private ReadOnly demoRound1Solution As DemoRound1Solution
         Private ReadOnly demoRound2Solution As DemoRound2Solution
         Private ReadOnly demoRound3Solution As DemoRound3Solution
@@ -26,6 +28,7 @@ Namespace BeFaster.App
             helloSolution = New HelloSolution()
             fizzBuzzSolution = New FizzBuzzSolution()
             checkoutSolution = New CheckoutSolution()
+            rabbitHoleSolution = New RabbitHoleSolution()
             demoRound1Solution = New DemoRound1Solution()
             demoRound2Solution = New DemoRound2Solution()
             demoRound3Solution = New DemoRound3Solution()
@@ -48,6 +51,14 @@ Namespace BeFaster.App
             Return checkoutSolution.Checkout(p(0).GetAsString())
         End Function
 
+        Public Function RabbitHole(p As List(Of ParamAccessor)) As Object
+            Return rabbitHoleSolution.RabbitHole(
+                p(0).GetAsInteger(),
+                p(1).GetAsInteger(),
+                p(2).GetAsString(),
+                p(3).GetAsMapOf(Of String)()
+            )
+        End Function
         ' Demo Round 1
 
         Public Function Increment(p As List(Of ParamAccessor)) As Object
