@@ -1,9 +1,11 @@
+Imports BeFaster.App.Solutions.AMZ
 Imports BeFaster.App.Solutions.CHK
 Imports BeFaster.App.Solutions.DMO
 Imports BeFaster.App.Solutions.FIZ
 Imports BeFaster.App.Solutions.HLO
 Imports BeFaster.App.Solutions.RBT
 Imports BeFaster.App.Solutions.SUM
+Imports BeFaster.App.Solutions.ULT
 
 Imports System.Collections.Generic
 Imports TDL.Client.Queue.Abstractions
@@ -18,6 +20,8 @@ Namespace BeFaster.App
         Private ReadOnly fizzBuzzSolution As FizzBuzzSolution
         Private ReadOnly checkoutSolution As CheckoutSolution
         Private ReadOnly rabbitHoleSolution As RabbitHoleSolution
+        Private ReadOnly amazingSolution As AmazingSolution
+        Private ReadOnly ultimateSolution As UltimateSolution
         Private ReadOnly demoRound1Solution As DemoRound1Solution
         Private ReadOnly demoRound2Solution As DemoRound2Solution
         Private ReadOnly demoRound3Solution As DemoRound3Solution
@@ -29,6 +33,8 @@ Namespace BeFaster.App
             fizzBuzzSolution = New FizzBuzzSolution()
             checkoutSolution = New CheckoutSolution()
             rabbitHoleSolution = New RabbitHoleSolution()
+            amazingSolution = New AmazingSolution()
+            ultimateSolution = New UltimateSolution()
             demoRound1Solution = New DemoRound1Solution()
             demoRound2Solution = New DemoRound2Solution()
             demoRound3Solution = New DemoRound3Solution()
@@ -59,6 +65,23 @@ Namespace BeFaster.App
                 p(3).GetAsMapOf(Of String)()
             )
         End Function
+
+        Public Function AmazingMaze(p As List(Of ParamAccessor)) As Object
+            Return amazingSolution.AmazingMaze(
+                p(0).GetAsInteger(),
+                p(1).GetAsInteger(),
+                p(2).GetAsMapOf(Of String)()
+            )
+        End Function
+
+        Public Function UltimateMaze(p As List(Of ParamAccessor)) As Object
+            Return ultimateSolution.UltimateMaze(
+                p(0).GetAsInteger(),
+                p(1).GetAsInteger(),
+                p(2).GetAsMapOf(Of String)()
+            )
+        End Function
+
         ' Demo Round 1
 
         Public Function Increment(p As List(Of ParamAccessor)) As Object
